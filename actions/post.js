@@ -1,6 +1,8 @@
 "use server";
 import { redirect } from "next/navigation";
-import { storePost } from "@/lib/posts";
+import { storePost, updatePostLikeStatus } from "@/lib/posts";
+import { uploadImage } from "@/lib/cloudinary";
+import { revalidatePath } from "next/cache";
 
 export async function createPost(prevState, formData) {
     const title = formData.get("title");
@@ -25,12 +27,27 @@ export async function createPost(prevState, formData) {
         return { errors };
     }
 
+    let imageUrl;
+    try {
+        imageUrl = await uploadImage(image);
+    } catch (error) {
+        throw new Error("Failed to upload image");
+    }
+
     storePost({
-        imageUrl: "",
+        imageUrl: imageUrl,
         title,
         content,
         userId: 1,
     });
 
     redirect("/feed");
+}
+
+export async function togglePostLikeStatus(postId) {
+    updatePostLikeStatus(postId, 2);
+    // the revalidatePath function is used to revalidate the  page
+    // because the nextjs cache is used to cache the  page
+    // and we need to call it to update the cache with the new changes
+    revalidatePath("/", "layout");
 }
