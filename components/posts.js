@@ -6,10 +6,24 @@ import { togglePostLikeStatus } from "@/actions/post";
 import { useOptimistic } from "react";
 
 function Post({ post, action }) {
+    // The `imageLoader` function is used to optimize the image URL.
+    function imageLoader(config) {
+        const urlStart = config.src.split("upload/")[0];
+        const urlEnd = config.src.split("upload/")[1];
+        // Return the optimized image URL.
+        return `${urlStart}upload/w_200,q_${config.quality}/${urlEnd}`;
+    }
+
     return (
         <article className="post">
             <div className="post-image">
-                <Image src={post.image} fill alt={post.title} />
+                <Image
+                    loader={imageLoader}
+                    src={post.image}
+                    fill
+                    alt={post.title}
+                    quality={50}
+                />
             </div>
             <div className="post-content">
                 <header>
