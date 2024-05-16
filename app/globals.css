@@ -191,6 +191,12 @@ main {
     transition: all 0.4s;
 }
 
+.post-image {
+    position: relative;
+    width: 8rem;
+    height: 6rem;
+}
+
 .like-button svg {
     width: 1.5rem;
     height: 1.5rem;
