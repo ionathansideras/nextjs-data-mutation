@@ -191,10 +191,10 @@ main {
     transition: all 0.4s;
 }
 
-.post-image {
-    position: relative;
+.post img {
     width: 8rem;
     height: 6rem;
+    object-fit: cover;
 }
 
 .like-button svg {
