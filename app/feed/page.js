@@ -7,7 +7,7 @@ import { getPosts } from "@/lib/posts";
 //     description: "All posts by all users",
 // };
 
-// dyanmic metadata
+// dynamic metadata
 export async function generateMetadata() {
     const posts = await getPosts();
     return {

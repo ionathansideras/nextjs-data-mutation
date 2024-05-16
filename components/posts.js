@@ -11,6 +11,7 @@ function Post({ post, action }) {
         const urlStart = config.src.split("upload/")[0];
         const urlEnd = config.src.split("upload/")[1];
         // Return the optimized image URL.
+        console.log(config);
         return `${urlStart}upload/w_200,q_${config.quality}/${urlEnd}`;
     }
 
